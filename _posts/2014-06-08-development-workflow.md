@@ -46,39 +46,24 @@ I would begin work on a module that exposes a duplex stream reading tarball
 locations and writing out objects with tarball location and entry filename,
 once per entry.
 
-```bash
+{% highlight bash %}
 # work begins!
-
 mkdir tar-entry-stream; cd tar-entry-stream
-
 # initialize a git repo
-
 git init
-
 # add a license, typically MIT
-
 cp ~/license.mit LICENSE
-
 # create a barebones readme
-
 echo 'tar-entry-stream\n====' > README.md
-
 # make a test dir
-
 mkdir test
-
 # create some placeholder files
-
 touch index.js test/index.js
-
 # copy in my travis config
-
 cp ~/travis.yml .travis.yml
-
 # create the package.json, my ~/.npmrc is filled out with my defaults
-
 npm init
-```
+{% endhighlight %}
 
 I then create a repo on [Github](https://github.com) to host my source code on.
 I write the minimum amount of code I can in `index.js` to make my module do
@@ -101,13 +86,13 @@ contain:
 
 ...and then...
 
-```bash
+{% highlight bash %}
 # add my files
 git add index.js test/index.js package.json README.md .travis.yml LICENSE
 # add my github repo as a remote
 git remote add origin $github-url
 git push origin master
-```
+{% endhighlight %}
 
 ...wait for travis to verify build, and then: `npm publish`. Tada! Now I can
 begin work on my main app.
@@ -125,7 +110,7 @@ constantly as I work on it.
 
 Once my new test passes (and all of my old ones don't fail!)
 
-```bash
+{% highlight bash %}
 # stage whatever files have been altered
 git add index.js
 # commit my changes
@@ -136,7 +121,7 @@ npm version patch
 git push --tags origin master
 # .. wait for travis build, and then ..
 npm publish
-```
+{% endhighlight %}
 
 And there you have it, from creation to publishing, to inevitable maintenance.
 The benefits of this particular workflow for me are:
