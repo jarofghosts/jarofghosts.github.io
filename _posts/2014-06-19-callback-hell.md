@@ -20,21 +20,21 @@ have encountered to other people as opposed to mistakes that you have made.
 Are you naming all of your functions? NO?! Are you kidding me? Consider the
 following:
 
-```js
+{% highlight javascript %}
 thing.on('event', function() {
   return 0
 }
-```
+{% endhighlight %}
 
 vs
 
-```js
+{% highlight javascript %}
 thing.on('event', eventThinger)
 
 function eventThinger() {
   return 0
 }
-```
+{% endhighlight %}
 
 Which makes more sense immediately? Which seems scalable?
 
@@ -53,7 +53,7 @@ shared state, it just might be worth it.
 
 Example:
 
-```js
+{% highlight javascript %}
 function lol() {
   var state = 'a'
 
@@ -63,11 +63,11 @@ function lol() {
     console.log(state)
   }
 }
-```
+{% endhighlight %}
 
 vs
 
-```js
+{% highlight javascript %}
 var state = 'a'
 
 function lol() {
@@ -77,11 +77,11 @@ function lol() {
 function parse() {
   console.log(state)
 }
-```
+{% endhighlight %}
 
 ## Step 4: Return early
 
-```js
+{% highlight javascript %}
 function test(str) {
   if(str.length) {
     return str.split('').reverse().join('')
@@ -89,14 +89,14 @@ function test(str) {
     return 'No string found!'
   }
 }
-```
+{% endhighlight %}
 
 vs.
 
-```js
+{% highlight javascript %}
 function test(str) {
   if(!str.length) return 'No string found!'
 
   return str.split('').reverse().join('')
 }
-```
+{% endhighlight %}

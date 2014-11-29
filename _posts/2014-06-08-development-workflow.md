@@ -69,7 +69,9 @@ I then create a repo on [Github](https://github.com) to host my source code on.
 I write the minimum amount of code I can in `index.js` to make my module do
 what it needs to.
 
-`npm install --save-dev tape`
+{% highlight bash %}
+npm install --save-dev tape
+{% endhighlight %}
 
 Then I create a few tests to ensure that my module does what it should do.
 `npm test` will do run those for me since I filled out my package.json
