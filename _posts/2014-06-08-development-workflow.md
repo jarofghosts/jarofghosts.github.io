@@ -46,7 +46,7 @@ I would begin work on a module that exposes a duplex stream reading tarball
 locations and writing out objects with tarball location and entry filename,
 once per entry.
 
-```sh
+```bash
 # work begins!
 
 mkdir tar-entry-stream; cd tar-entry-stream
