@@ -1,3 +1,13 @@
+---
+layout: post
+title:  "Development Workflow"
+date:   2014-06-08 23:56:45
+description: How I make things
+categories:
+- blog
+permalink: development-workflow
+---
+
 Making stuff is hard, right?
 
 There are lots of ways to make things less hard, this is what works for me and

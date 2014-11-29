@@ -1,3 +1,13 @@
+---
+layout: post
+title:  "Callback Hell"
+date:   2014-06-19 23:56:45
+description: Avoiding callback hell.
+categories:
+- blog
+permalink: callback-hell
+---
+
 "[Callback hell](http://callbackhell.com/)" is a real place, and it is a place
 that you create for yourself.
 

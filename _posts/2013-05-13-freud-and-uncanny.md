@@ -1,3 +1,13 @@
+---
+layout: post
+title:  "Freud and Uncanny"
+date:   2013-05-13 14:56:45
+description: Words about things
+categories:
+- blog
+permalink: freud-and-uncanny
+---
+
 I had an idea a while ago that I might start blogging. Of course, what good what an idea be without a proper barrier to entry? Thus: [Uncanny](https://github.com/jarofghosts/uncanny). (and [Freud](https://github.com/jarofghosts/freud).)
 
 The idea was pretty simple. I wanted to be able to do all of my edits from the comfort of [my text editor](http://www.sublimetext.com/) and not have to worry about pushing it somewhere or dragging or dropping or any of those other things that people that aren't exceedingly lazy wouldn't even think about as an issue.
