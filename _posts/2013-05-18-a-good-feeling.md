@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "A Good Feeling"
+date:   2013-05-18 23:56:45
+description: Re-inventing the wheel I didn't know existed.
+categories:
+- blog
+permalink: a-good-feeling
+---
 I just spent a good two hours writing a node module that will never see the light of day.
 
 I wanted to write a good router that didn't have a ton of useless dependencies and was essentially just an [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter) with a route-friendly interface.

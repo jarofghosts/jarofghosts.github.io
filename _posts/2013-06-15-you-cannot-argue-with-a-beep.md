@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "You Can't Argue With a Beep"
+date:   2013-05-18 23:56:45
+description: In which I attempt to get my shit together
+categories:
+- blog
+permalink: you-cant-argue-with-a-beep
+---
 Today marks week one, day two of  my [Couch to 5k](http://www.coolrunning.com/engine/2/2_3/181.shtml) odyssey.
 
 I am currently ill-prepared to remark on the effectiveness of the program, aside from a marked improvement in my "need to puke" feeling following a running session. Today I only kind of needed to puke. But I didn't!

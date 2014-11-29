@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Stay Off My Lawn"
+date:   2013-05-20 23:56:45
+description: Venting about things that don't matter
+categories:
+- blog
+permalink: stay-off-my-lawn
+---
 It used to be if you wanted to talk on the Internet you might encounter a dissenting opinion.
 
 Luckily, we've made it really easy to filter the ideas and opinions we hear to better match exactly those that we have and agree with (or Like<sup>TM</sup>).

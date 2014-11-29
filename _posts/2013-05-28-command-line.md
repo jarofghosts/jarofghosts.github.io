@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Command Line"
+date:   2013-05-28 23:56:45
+description: Taking control of the Computer Machine
+categories:
+- blog
+permalink: command-line
+---
 I have a confession to make.
 
 Not too long ago I was doing all my development in Windows.
