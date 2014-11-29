@@ -46,22 +46,37 @@ I would begin work on a module that exposes a duplex stream reading tarball
 locations and writing out objects with tarball location and entry filename,
 once per entry.
 
-```bash
+```sh
 # work begins!
+
 mkdir tar-entry-stream; cd tar-entry-stream
+
 # initialize a git repo
+
 git init
+
 # add a license, typically MIT
+
 cp ~/license.mit LICENSE
+
 # create a barebones readme
+
 echo 'tar-entry-stream\n====' > README.md
+
 # make a test dir
+
 mkdir test
+
 # create some placeholder files
+
 touch index.js test/index.js
+
 # copy in my travis config
+
 cp ~/travis.yml .travis.yml
+
 # create the package.json, my ~/.npmrc is filled out with my defaults
+
 npm init
 ```
 
