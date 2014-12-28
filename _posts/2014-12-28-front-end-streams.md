@@ -234,6 +234,6 @@ This might look scary at first, but let's break it down
 ## In Conclusion
 
 Streams are an undeniably powerful concept. They enforce a separation of
-concerns and provide handy mechanisms for composition. Hopefully I have made
+concerns and provide handy mechanisms for composition. Hopefully, I have made
 clear how you can leverage them for making your front-end code simpler and
 more portable!
