@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Front-end Streams"
+date:   2014-12-28 17:56:45
+description: Streams all up in your browser window
+categories:
+- blog
+permalink: front-end-streams
+---
 ## What
 
 [Streams](http://nodejs.org/api/stream.html) are infectious. They are, to date,
