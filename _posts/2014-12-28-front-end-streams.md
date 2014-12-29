@@ -32,8 +32,8 @@ interface, we simply wrap it with one!
 
 ## Why
 
-Thinking about your application in terms of pipelines of data is likely a
-novel concept, but it provides you with a lot of benefits.
+Thinking about your application in terms of streams and pipelines of data
+provides you with a lot of benefits.
 
 1. The pieces that your system consists of (the streaming modules) tend to be
 much smaller and simpler. These properties tend to make them more testable,
@@ -46,6 +46,9 @@ at its deepest levels. This means that stepping through code and introspecting
 data is much easier and more intuitive. It also means that you are free to
 introduce *any* dependency at your endpoints, because there aren't any prior
 opinions baked into your data-- only your own.
+
+For a more in-depth analysis, see
+[The Stream Handbook](https://github.com/substack/stream-handbook)
 
 ## Examples
 
@@ -211,7 +214,7 @@ function creditCard(el) {
 }
 ```
 
-This might look scary at first, but let's break it down
+Let's break it down:
 
 * We require all of the modules we will be using, including a couple of
   theoretical but trivially-implemented modules.
