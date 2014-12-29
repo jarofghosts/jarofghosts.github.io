@@ -69,7 +69,7 @@ that you can very easily be living within!
 
 ```javascript
 var write = require('dom-replace-html-stream')
-  , events = require('dom-event-stream')
+  , events = require('dom-delegation-stream')
   , values = require('dom-value-stream')
 
 var input = events(document.getElementById('input'), 'input').pipe(values())
