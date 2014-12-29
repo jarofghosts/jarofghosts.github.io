@@ -34,7 +34,6 @@ introduce *any* libraries or modules into your "stack".
 For a more in-depth analysis, see
 [The Stream Handbook](https://github.com/substack/stream-handbook)
 
-
 ## An Ideal World
 
 Imagine you want to take what a user types into an input element and display it
