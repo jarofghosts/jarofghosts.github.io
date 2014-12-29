@@ -7,8 +7,6 @@ categories:
 - blog
 permalink: front-end-streams
 ---
-## What
-
 [Streams](http://nodejs.org/api/stream.html) are infectious. They are, to date,
 my favorite abstraction for dealing with large amounts of data over time.
 
@@ -18,28 +16,6 @@ composable interface to allow communication with one another via `.pipe()`.
 A big problem that I deal with every day is that of working with a large amount
 of dynamic user input over time in the form of DOM events. That, to me,
 indicates that streams are a great fit for modeling web applications!
-
-## How
-
-Browserify enables us to have [node streams](http://nodejs.org/api/stream.html)
-in the browser. This means that not only do we get stream primitives for cheap,
-but we also get the *wealth* of streaming modules on
-[npm](https://www.npmjs.org) that Just Work(TM), because they deal simply with
-isolated forms of data.
-
-For more specific DOM tasks, we use speciality modules, such as:
-
-* [dom-delegation-stream](http://npm.im/dom-delegation-stream)
-* [dom-value-stream](http://npm.im/dom-value-stream)
-* [dom-replace-html-stream](http://npm.im/dom-replace-html-stream)
-
-Another module we lean heavily upon for aggregating and contextualizing streams
-(and event emitters in general) is [ObjectState](http://npm.im/objectstate).
-
-If we want to use something in a pipeline that doesn't provide a streaming
-interface, we simply wrap it with one!
-
-## Why
 
 Thinking about your application in terms of streams and pipelines of data
 provides you with a lot of benefits.
@@ -53,19 +29,19 @@ very easy to write, it is also very easy to read.
 3. Your system is talking [POJOs](http://odetocode.com/blogs/scott/archive/2012/02/27/plain-old-javascript.aspx)
 at its deepest levels. This means that stepping through code and introspecting
 data is much easier and more intuitive. It also means that you are free to
-introduce *any* dependency at your endpoints, because there aren't any prior
-opinions baked into your data-- only your own.
+introduce *any* libraries or modules into your "stack".
 
 For a more in-depth analysis, see
 [The Stream Handbook](https://github.com/substack/stream-handbook)
 
-## Examples
 
-Imagine you want to implement a binding between an input element and an output.
-All we have to do is think of these things in terms of readable and writable
-streams and suddenly it's very trivial!
+## An Ideal World
 
-Let's imagine an ideal world:
+Imagine you want to take what a user types into an input element and display it
+in an output element. All we have to do is think of these things in terms of
+readable and writable streams and suddenly it's very trivial!
+
+Let's imagine the simplest way to write that:
 
 ```javascript
 // pseudo-code incoming!
@@ -75,6 +51,31 @@ inputElement.pipe(outputElement)
 
 The good news is that this ideal world is not much different from the world
 that you can very easily be living within!
+
+## How
+
+Browserify enables us to have [node streams](http://nodejs.org/api/stream.html)
+in the browser. This means that not only do we get stream primitives for cheap,
+but we also get the *wealth* of streaming modules on
+[npm](https://www.npmjs.org) that Just Work(TM), because they deal simply with
+isolated forms of data.
+
+Generally, we use [through](http://npm.im/through) for stream construction. It
+presents a nice, functional interface that is very intuitive.
+
+For more specific DOM tasks, we use speciality modules, such as:
+
+* [dom-delegation-stream](http://npm.im/dom-delegation-stream)
+* [dom-value-stream](http://npm.im/dom-value-stream)
+* [dom-replace-html-stream](http://npm.im/dom-replace-html-stream)
+
+Another module we lean heavily upon for aggregating and contextualizing streams
+(and event emitters in general) is [ObjectState](http://npm.im/objectstate).
+
+If we want to use something in a pipeline that doesn't provide a streaming
+interface, we simply wrap it with one!
+
+## Examples
 
 ```javascript
 var write = require('dom-replace-html-stream')
@@ -130,8 +131,8 @@ data into meaningful chunks of data and act upon them accordingly.
 ### Putting it all together
 
 Let's make a slightly more advanced (if still somewhat contrived) system. Say
-you want to create a module that lets the user input their credit card number
-into an input and have it rendered as it might appear on a card itself.
+you want to create a module that lets the user input an ID number into an input
+and have it rendered as it might appear on an ID card.
 
 For this example, we will want to use a template engine. At Urban Airship, we
 use [Ractive](http://www.ractivejs.org/). As mentioned earlier, because it does
@@ -200,11 +201,11 @@ var events = require('dom-delegation-stream')
 var ractiveStream = require('./ractive-stream')
   , cardTemplate = require('./template.ract') // check out the ractify transform
   , stripNonDigits = require('./strip-non-digits')
-  , addSpaces = require('./add-spaces')
+  , addDashes = require('./add-dashes')
 
-module.exports = creditCard
+module.exports = cardWidget
 
-function creditCard(el) {
+function cardWidget(el) {
   var ractive = ractiveStream(el, cardTemplate)
     , state = objectState()
 
@@ -214,7 +215,7 @@ function creditCard(el) {
   var cardNumber = events(el, 'input', '[name=card-number]')
     .pipe(values())
     .pipe(stripNonDigits())
-    .pipe(addSpaces())
+    .pipe(addDashes())
 
   state.listen(name, 'fullName')
     .listen(cardNumber, 'cardNumber')
@@ -228,8 +229,8 @@ Let's break it down:
 * We require all of the modules we will be using, including a couple of
   theoretical but trivially-implemented modules.
   - "strip-non-digits" just removes all non-digit characters from a string.
-  - "add-spaces" inserts spaces into a string in a pattern like you would
-    expect on a credit card.
+  - "add-dashes" inserts dashes into a string in a pattern like you might
+    expect on an ID card.
 * We declare our export, which is the function that constructs this "widget"
 * Our function takes an element, and immediately creates a ractiveStream with
   that element and our template.
