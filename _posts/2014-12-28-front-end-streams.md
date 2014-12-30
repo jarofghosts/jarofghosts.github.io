@@ -13,9 +13,9 @@ my favorite abstraction for dealing with large amounts of data over time.
 They force you to think about big problems in small pieces, and present a handy
 composable interface to allow communication with one another via `.pipe()`.
 
-A big problem that I deal with every day is that of working with a large amount
-of dynamic user input over time in the form of DOM events. That, to me,
-indicates that streams are a great fit for modeling web applications!
+A problem I deal with every day is user input changing over time in the form of
+DOM events. Streams are designed to deal with data changes over time, so it
+seems like a logical fit.
 
 Thinking about your application in terms of streams and pipelines of data
 provides you with a lot of benefits.
@@ -24,8 +24,9 @@ provides you with a lot of benefits.
 much smaller and simpler. These properties tend to make them more testable,
 more reusable, easier to reason about, and less prone to bugs.
 2. The code that glues the pieces together as pipelines tends to be very
-expressive. `a.pipe(b).pipe(c)` is a very powerful statement! Not only is it
-very easy to write, it is also very easy to read.
+expressive. `a.pipe(b).pipe(c)` is a very powerful statement. Not only is it
+very easy to write, it is also very easy to read: you are just chaining data
+transformations.
 3. Your system is talking [POJOs](http://odetocode.com/blogs/scott/archive/2012/02/27/plain-old-javascript.aspx)
 at its deepest levels. This means that stepping through code and introspecting
 data is much easier and more intuitive. It also means that you are free to
@@ -38,7 +39,7 @@ For a more in-depth analysis, see
 
 Imagine you want to take what a user types into an input element and display it
 in an output element. All we have to do is think of these things in terms of
-readable and writable streams and suddenly it's very trivial!
+readable and writable streams and suddenly it's very trivial.
 
 Let's imagine the simplest way to write that:
 
@@ -49,7 +50,7 @@ inputElement.pipe(outputElement)
 ```
 
 The good news is that this ideal world is not much different from the world
-that you can very easily be living within!
+that you can very easily be living within.
 
 ## How
 
@@ -59,20 +60,17 @@ but we also get the *wealth* of streaming modules on
 [npm](https://www.npmjs.org) that Just Work(TM), because they deal simply with
 isolated forms of data.
 
-Generally, we use [through](http://npm.im/through) for stream construction. It
+Generally, I use [through](http://npm.im/through) for stream construction. It
 presents a nice, functional interface that is very intuitive.
 
-For more specific DOM tasks, we use speciality modules, such as:
+For more specific DOM tasks, we can use speciality modules, such as:
 
 * [dom-delegation-stream](http://npm.im/dom-delegation-stream)
 * [dom-value-stream](http://npm.im/dom-value-stream)
 * [dom-replace-html-stream](http://npm.im/dom-replace-html-stream)
 
-Another module we lean heavily upon for aggregating and contextualizing streams
-(and event emitters in general) is [ObjectState](http://npm.im/objectstate).
-
-If we want to use something in a pipeline that doesn't provide a streaming
-interface, we simply wrap it with one!
+If I want to use something in a pipeline that doesn't provide a streaming
+interface, I simply wrap it with one.
 
 ## Examples
 
@@ -81,6 +79,8 @@ var write = require('dom-replace-html-stream')
   , events = require('dom-delegation-stream')
   , values = require('dom-value-stream')
 
+// `.pipe()` always returns the destination stream, so we set up a pipeline and
+// assign `input` to the stream of values
 var input = events(document.getElementById('input'), 'input').pipe(values())
 var output = write(document.getElementById('output'))
 
@@ -93,15 +93,17 @@ Let's take a look at what is happening here.
 2. We set up a first pipeline consisting of:
     - 'input' events triggered by the element with ID 'input'
     - the value of the element that triggered the original event
-3. We create a writable stream to the element with ID 'output'
-4. We create a new pipeline from the "input" to the "output"
-5. Magic
+3. Because `.pipe()` always returns the destination stream, `input` is assigned
+   to the `values()` stream that is emitting the element values.
+4. We create a writable stream to the element with ID 'output'
+5. We create a new pipeline from the "input" to the "output"
+6. Magic
 
 ### Introducing "ObjectState"
 
 Now, let's imagine that you want to actually collect this data somewhere to be
 used later, perhaps to send off to an API. This is where
-[ObjectState](http://npm.im/objectstate) comes in! Check this out:
+[ObjectState](http://npm.im/objectstate) comes in. Check this out:
 
 ```javascript
 var objectState = require('objectstate')
@@ -122,10 +124,10 @@ into a state object like:
 }
 ```
 
-The best part is that ObjectState is itself a stream! Which means that you can
+The best part is that ObjectState is itself a stream. Which means that you can
 pipe it anywhere and it will happily emit its "state objects" anywhere you
 desire. This gives you a very simple and powerful way to compose streams of
-data into meaningful chunks of data and act upon them accordingly.
+data into meaningful "chunks" and act upon them accordingly.
 
 ### Putting it all together
 
@@ -165,8 +167,10 @@ function ractiveStream(el, template, _options) {
 
 Pretty straight-forward, but let's take a quick look.
 
-* We expose a simple API that meets our needs (give an element and a template,
-  optionally direct Ractive options, return a stream).
+* We expose a simple API that meets our needs (given an element and a template,
+  optionally a
+  [Ractive options object](http://docs.ractivejs.org/latest/options), return a
+  stream).
 * We provide access to the Ractive instance via the `.view` property of the
   returned stream.
 * Whenever our stream is written to, it resets the context of the Ractive
@@ -190,7 +194,7 @@ Let's start with the template
 </div>
 ```
 
-Simple enough, now for the actual code:
+Simple enough, now for the JavaScript:
 
 ```javascript
 var events = require('dom-delegation-stream')
@@ -208,9 +212,15 @@ function cardWidget(el) {
   var ractive = ractiveStream(el, cardTemplate)
     , state = objectState()
 
+  // DOM events -> values, assign `name` to the values stream
+  // we select on the `name` attribute, because it is not typically subject to
+  // change as frequently as class or ID.
   var name = events(el, 'input', '[name=full-name]')
     .pipe(values())
 
+  // DOM events -> values -> strip non-digits -> add dashes, assign `cardNumber`
+  // to the dashes stream
+  // " 123 45678,91011a12" -> "123456789101112" -> "1234-5678-9101-112"
   var cardNumber = events(el, 'input', '[name=card-number]')
     .pipe(values())
     .pipe(stripNonDigits())
@@ -226,7 +236,8 @@ function cardWidget(el) {
 Let's break it down:
 
 * We require all of the modules we will be using, including a couple of
-  theoretical but trivially-implemented modules.
+  theoretical but trivially-implemented modules that export a function that
+  returns a stream:
   - "strip-non-digits" just removes all non-digit characters from a string.
   - "add-dashes" inserts dashes into a string in a pattern like you might
     expect on an ID card.
@@ -234,10 +245,10 @@ Let's break it down:
 * Our function takes an element, and immediately creates a ractiveStream with
   that element and our template.
 * We initialize an ObjectState to serve as our source of context.
-* We create two pipelines.
+* We create two pipelines:
   - They both start as events -> values, effectively turning input keystrokes
     into the value of the element they were triggered from.
-  - The `cardNumber` stream is further piped into our "add-spaces" module for
+  - The `cardNumber` stream is further piped into our "add-dashes" module for
     formatting.
 * Our objectState is told to listen to these streams, and consider them as keys
   "fullName" and "cardNumber" respectively.
@@ -248,4 +259,13 @@ Let's break it down:
 Streams are an undeniably powerful concept. They enforce a separation of
 concerns and provide handy mechanisms for composition. Hopefully, I have made
 clear how you can leverage them for making your front-end code simpler and
-more portable!
+more portable. In future blog posts, I plan to explore options for creating
+large systems using these concepts.
+
+## Further Reading
+
+[Streams Documentation](http://nodejs.org/api/stream.html)
+[The Stream Handbook](https://github.com/substack/stream-handbook)
+[Ractive](http://www.ractivejs.org/)
+[Browserify](http://browserify.org/)
+[Ractify Transform](http://npm.im/ractify)
