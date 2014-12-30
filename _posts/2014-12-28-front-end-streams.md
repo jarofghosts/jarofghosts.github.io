@@ -264,8 +264,8 @@ large systems using these concepts.
 
 ## Further Reading
 
-[Streams Documentation](http://nodejs.org/api/stream.html)
-[The Stream Handbook](https://github.com/substack/stream-handbook)
-[Ractive](http://www.ractivejs.org/)
-[Browserify](http://browserify.org/)
-[Ractify Transform](http://npm.im/ractify)
+* [Streams Documentation](http://nodejs.org/api/stream.html)
+* [The Stream Handbook](https://github.com/substack/stream-handbook)
+* [Ractive](http://www.ractivejs.org/)
+* [Browserify](http://browserify.org/)
+* [Ractify Transform](http://npm.im/ractify)
