@@ -43,11 +43,11 @@ readable and writable streams and suddenly it's very trivial.
 
 Let's imagine the simplest way to write that:
 
-```javascript
+{% highlight javascript %}
 // pseudo-code incoming!
 
 inputElement.pipe(outputElement)
-```
+{% endhighlight %}
 
 The good news is that this ideal world is not much different from the world
 that you can very easily be living within.
@@ -74,7 +74,7 @@ interface, I simply wrap it with one.
 
 ## Examples
 
-```javascript
+{% highlight javascript %}
 var write = require('dom-replace-html-stream')
   , events = require('dom-delegation-stream')
   , values = require('dom-value-stream')
@@ -85,7 +85,7 @@ var input = events(document.getElementById('input'), 'input').pipe(values())
 var output = write(document.getElementById('output'))
 
 input.pipe(output)
-```
+{% endhighlight %}
 
 Let's take a look at what is happening here. 
 
@@ -105,7 +105,7 @@ Now, let's imagine that you want to actually collect this data somewhere to be
 used later, perhaps to send off to an API. This is where
 [ObjectState](http://npm.im/objectstate) comes in. Check this out:
 
-```javascript
+{% highlight javascript %}
 var objectState = require('objectstate')
 
 var state = objectState()
@@ -113,16 +113,16 @@ var state = objectState()
 // ...the previous example happens...
 
 state.listen(input, 'userInput')
-```
+{% endhighlight %}
 
 Now, as you enter text into the input, ObjectState is collecting the emissions
 into a state object like:
 
-```javascript
+{% highlight javascript %}
 {
     userInput: 'whatever you typed!'
 }
-```
+{% endhighlight %}
 
 The best part is that ObjectState is itself a stream. Which means that you can
 pipe it anywhere and it will happily emit its "state objects" anywhere you
@@ -140,7 +140,7 @@ use [Ractive](http://www.ractivejs.org/). As mentioned earlier, because it does
 not expose a streaming interface, we wrap it in one. That wrapper looks very
 much like:
 
-```javascript
+{% highlight javascript %}
 var Ractive = require('ractive')
   , through = require('through')
 
@@ -163,7 +163,7 @@ function ractiveStream(el, template, _options) {
     ractive.reset(data)
   }
 }
-```
+{% endhighlight %}
 
 Pretty straight-forward, but let's take a quick look.
 
@@ -181,7 +181,7 @@ DOM element to render itself into.
 
 Let's start with the template
 
-```html
+{% highlight html %}
 <div class="card-input">
   <input type="text" name="full-name"/>
   <input type="text" name="card-number"/>
@@ -192,11 +192,11 @@ Let's start with the template
     <span class="card-name">{{ fullName }}</span>
   </div>
 </div>
-```
+{% endhighlight %}
 
 Simple enough, now for the JavaScript:
 
-```javascript
+{% highlight javascript %}
 var events = require('dom-delegation-stream')
   , values = require('dom-value-stream')
   , objectState = require('objectstate')
@@ -231,7 +231,7 @@ function cardWidget(el) {
 
   state.pipe(ractive)
 }
-```
+{% endhighlight %}
 
 Let's break it down:
 
