@@ -264,6 +264,8 @@ large systems using these concepts.
 
 ## Further Reading
 
+* [Greg Corradini](https://github.com/thebigspoon)'s
+  [implementations of the example problems](https://github.com/thebigspoon/frontendstreams)
 * [Streams Documentation](http://nodejs.org/api/stream.html)
 * [The Stream Handbook](https://github.com/substack/stream-handbook)
 * [Ractive](http://www.ractivejs.org/)
