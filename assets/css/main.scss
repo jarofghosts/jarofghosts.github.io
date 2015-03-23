@@ -382,6 +382,7 @@ div.page-content {
       background: url(./images/bullet.svg);
       background-repeat: no-repeat;
       background-position: 0 6px;
+      padding: 0 0 5px 15px;
       margin-left: 0;
     }
     @include MQ(M){        
